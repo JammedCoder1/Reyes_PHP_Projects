@@ -1,9 +1,38 @@
+<?php
+
+$Result = "";
+$Error = "";
+$ConvertedOz = "";
+$ConvertedKg = ""; 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //Input field for the user
+	$Number1 = $_POST["Number1"];  
+	//24k
+	$Karat = 9300;
+	//oz, g, kg
+	$Oz = 28.3495;
+    $Kg = 1000;
+
+	if ($Number1 === ""){   //Checks for null inputs
+		$Error = "Field must be filled";
+	} elseif (!is_numeric($Number1)){ //Checks if input is numeric
+		$Error = "Input must be numeric";
+	} else{ //Runs the Main Program
+        $Result = $Number1 * $Karat;
+        $ConvertedOz = $Number1 * $Oz;
+        $ConvertedKg = $Number1 * $Kg;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing</title>
+    <title>Gold To Php</title>
+
     <style>
         body{
             margin: 0;
@@ -78,6 +107,7 @@
             box-sizing: border-box;
         }
 
+        /*
         select{
             width: 85%;
             padding: 16px;
@@ -88,6 +118,7 @@
             background: white;
 
         }
+        */
 
         button{
             width: 50%;
@@ -123,39 +154,51 @@
             backdrop-filter: blur(4px);
         }
 
-        
-
-
-
-
-
-
     </style>
 </head>
+
 <body>
-   <div class="container">
+    <div class="container">
 
-      <h1>Gold Converter</h1>
-      <div class="card">
-          <div class="illustration-box">
-                  <img class = "gold" src="ingots.png" alt="gold bars">
-                  <img class = "money" src="money.png" alt="stack of money">
-          </div>
-          <input type="text" placeholder="Enter Amount">
-          <select>
-            <option>Grams</option>
-            <option>Ounces</option>
-            <option>Kilograms</option>
-          </select>
+        <h1>Gold Converter</h1>
+        <form method="POST">
+        <div class="card">
+            <div class="illustration-box">
+                    <img class = "gold" src="ingots.png" alt="gold bars">
+                    <img class = "money" src="money.png" alt="stack of money">
+            </div>
 
-          <button>Convert</button>
+            <input type="text" name="Number1" placeholder="Enter Gold Weight (in Grams)">
 
-         <div class="result">result: -</div>
+            <!--
+            <select>
+                <option>Grams</option>
+                <option>Ounces</option>
+                <option>Kilograms</option>
+            </select>
+            -->
 
+            <button type="submit">Convert</button>
 
-          
-      </div>
+            <!--
+            <div class="result">result: -</div>
+            -->
+  
+        </div>
 
-   </div>
+        <?php
+        if ($Error != "") {
+            echo $Error;
+        }
+
+        if ($Error == "" && $Result !== "") {
+            echo "<p>Php</p>$Result<br>";
+            echo "$ConvertedOz<p>oz</p><br>";
+            echo "$ConvertedKg<p>kg</p><br>";
+        }
+        ?>
+
+    </div>
 </body>
+
 </html>
