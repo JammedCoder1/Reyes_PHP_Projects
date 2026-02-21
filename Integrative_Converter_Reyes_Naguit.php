@@ -14,14 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$Oz = 28.3495;
     $Kg = 1000;
 
-	if ($Number1 === ""){   //Checks for null inputs
-		$Error = "Field must be filled";
+	if ($Number1 === "" || $Number1 === "0"){   //Checks for null or 0 inputs
+		$Error = "Field must be filled or not 0";
 	} elseif (!is_numeric($Number1)){ //Checks if input is numeric
 		$Error = "Input must be numeric";
 	} else{ //Runs the Main Program
         $Result = $Number1 * $Karat;
         $ConvertedOz = $Number1 * $Oz;
-        $ConvertedKg = $Number1 * $Kg;
+        $ConvertedKg = $Number1 / $Kg;
     }
 }
 ?>
@@ -194,9 +194,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($Error == "" && $Result !== "") {
 
             echo"<div class='result'>result:
-                 <p>₱: $Result </p>
-                 <p>oz: $ConvertedOz</p>
-                 <p>kg: $ConvertedKg</p></div>";
+                 <p>₱$Result </p>
+                 <p>{$ConvertedOz}oz</p>
+                 <p>{$ConvertedKg}kg</p></div>";
         }
         ?>
 
