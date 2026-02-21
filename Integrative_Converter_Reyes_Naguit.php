@@ -181,20 +181,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit">Convert</button>
 
             <!--
-            <div class="result">result: -</div>
+            
             -->
   
         </div>
 
         <?php
         if ($Error != "") {
-            echo $Error;
+            echo"<div class='result'>result: $Error </div>";
         }
 
         if ($Error == "" && $Result !== "") {
-            echo "<p>Php</p>$Result<br>";
-            echo "$ConvertedOz<p>oz</p><br>";
-            echo "$ConvertedKg<p>kg</p><br>";
+
+            echo"<div class='result'>result:
+                 <p>₱: $Result </p>
+                 <p>oz: $ConvertedOz</p>
+                 <p>kg: $ConvertedKg</p></div>";
         }
         ?>
 
